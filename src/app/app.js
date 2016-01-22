@@ -22,6 +22,11 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
             templateUrl: "app/minor/minor.html",
             data: { pageTitle: 'Dashboard' }
         })
+        .state('index.upload', {
+            url: "/upload",
+            templateUrl: "app/upload/upload.html",
+            data: { pageTitle: 'Upload' }
+        })
         .state('index.portfolio', {
           url: "/portfolio",
           templateUrl: "app/portfolio/portfolio.html",
@@ -46,13 +51,19 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
     $scope.auth.$onAuth(function(authData) {
       $scope.authData = authData;
-      console.log();
+      console.log(authData);
       if(authData){
-        console.log(authData)
+        console.log(authData.google)
+        var uid = authData.uid
+
+        var google = {
+          name: authData.google.displayName,
+          img: authData.google.profileImageURL
+        }
 
         // send user data to fb for streaming
-        // var userRef = new Firebase("https://optionsjs.firebaseio.com/users");
-        // userRef.child(handle).set(twitter);
+        var userRef = new Firebase("https://optionsjs.firebaseio.com/users")
+        userRef.child(uid).set(google)
 
         // $scope.profileImg = authData.twitter.profileImageURL;
       }
