@@ -1,5 +1,5 @@
 angular.module('inspinia')
-      .service('portfolioService', function($firebaseObject){
+      .service('portfolioService', function($firebaseObject, $rootScope){
         var fireBaseRefs = {
             ref           :  new Firebase('https://optionsjs.firebaseio.com'),
             userRef       :   new Firebase('https://optionsjs.firebaseio.com/users'),
@@ -8,9 +8,6 @@ angular.module('inspinia')
         this.returnFBRefs = function(){
           return fireBaseRefs
         }
-
-
-        // from google get user id
-
         this.userRef = {};
+        this.portfolioRef= {};
     })
