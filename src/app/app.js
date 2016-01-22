@@ -21,6 +21,12 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
             url: "/dashboard",
             templateUrl: "app/minor/minor.html",
             data: { pageTitle: 'Dashboard' }
+        })
+        .state('index.portfolio', {
+          url: "/portfolio",
+          templateUrl: "app/portfolio/portfolio.html",
+          controller: "PortfolioCtrl",
+          data: {pateTitle: 'My Portfolio'}
         });
 
     $urlRouterProvider.otherwise('/index/login');
@@ -40,15 +46,15 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
     $scope.auth.$onAuth(function(authData) {
       $scope.authData = authData;
-
+      console.log();
       if(authData){
         console.log(authData)
 
         // send user data to fb for streaming
-        var userRef = new Firebase("https://optionsjs.firebaseio.com/users");
-        userRef.child(handle).set(twitter);
+        // var userRef = new Firebase("https://optionsjs.firebaseio.com/users");
+        // userRef.child(handle).set(twitter);
 
-        $scope.profileImg = authData.twitter.profileImageURL;
+        // $scope.profileImg = authData.twitter.profileImageURL;
       }
     });
   });
