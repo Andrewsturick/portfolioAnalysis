@@ -1,0 +1,17 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <span minimaliza-sidebar></span>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+              <!-- this will need to go inside the controller? --> 
+              <div ng-show="authData">
+                <button type="button" class="btn btn-default navbar-btn navbar-right" ng-click="logout()">
+                  Logout
+                </button>
+              </div>
+            </li>
+        </ul>
+    </nav>
+</div>
