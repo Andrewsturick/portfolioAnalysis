@@ -43,6 +43,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "npm install && bower install && gulp build"
+    "start": "npm install && bower install",
+    "postinstall": "gulp default"
   }
 }
