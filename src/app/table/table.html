@@ -1,0 +1,18 @@
+<table st-table="portfolio" class="table table-striped">
+
+	<thead>
+		<!-- dynamic  -->
+    <tr>
+    	<th st-sort="Symbol">Symbol</th>
+			<th st-sort="Qty">Qty</th>
+			<th st-sort="trade_price">Trade Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  	<tr ng-repeat="(k, v) in portfolio">
+  		<td>{{v.Symbol}}</td>
+  		<td>{{v.Qty}}</td>
+			<td>{{v.Trade_Price}}</td>
+  	</tr>
+	</tbody>
+</table>

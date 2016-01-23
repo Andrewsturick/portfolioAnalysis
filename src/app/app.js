@@ -17,23 +17,18 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
             templateUrl: "app/main/login.html",
             data: { pageTitle: 'Login', specialClass: 'gray-bg'  }
         })
-        .state('index.dashboard', {
-            url: "/dashboard",
-            templateUrl: "app/minor/minor.html",
-            data: { pageTitle: 'Dashboard' }
-        })
         .state('index.upload', {
             url: "/upload",
             templateUrl: "app/upload/upload.html",
             controller: "UploadCtrl",
             data: { pageTitle: 'Upload' }
         })
-        .state('index.portfolio', {
-          url: "/portfolio",
-          templateUrl: "app/portfolio/portfolio.html",
-          controller: "PortfolioCtrl",
-          data: {pateTitle: 'My Portfolio'}
-        });
+        .state('index.table', {
+            url: "/table",
+            templateUrl: "app/table/table.html",
+            controller: "tableCtrl",
+            data: { pageTitle: 'Table' }
+        })
 
     $urlRouterProvider.otherwise('/index/login');
   })
@@ -62,7 +57,7 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
         // send user data to fb for streaming
         var userRef = new Firebase("https://optionsjs.firebaseio.com/users")
-        userRef.child(uid).set(google)
+        userRef.child(uid).update(google)
 
         // $scope.profileImg = authData.twitter.profileImageURL;
       }
