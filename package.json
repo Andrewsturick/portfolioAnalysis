@@ -2,6 +2,7 @@
   "name": "inspinia",
   "version": "2.3.0",
   "dependencies": {
+    "express": "^4.13.4",
     "foreman": "1.4.1"
   },
   "devDependencies": {

@@ -1,0 +1,9 @@
+{
+  "firebase": "optionsjs",
+  "public": "src/app",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**"
+  ]
+}
