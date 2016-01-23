@@ -22,7 +22,7 @@ angular.module('inspinia')
           console.log(file);
           csvRef.child(authData.uid).update({
             csv: file,
-            id: authData.uid
+            id: authData.uid  
           })
         };
     })
