@@ -44,6 +44,6 @@
   },
   "scripts": {
     "start": "bower install",
-    "postinstall": "gulp default"
+    "postinstall": "gulp build"
   }
 }
