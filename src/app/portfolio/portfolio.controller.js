@@ -1,11 +1,10 @@
 'use strict'
 
 angular.module('inspinia')
-      .controller('UploadCtrl', function($scope, Auth, $timeout, $rootScope, $firebaseObject){
+      .controller('PortfolioCtrl', function($scope, Auth, $timeout, $rootScope, $firebaseObject){
 
         var ref = new Firebase("https://optionsjs.firebaseio.com/users")
         var authData = ref.getAuth()
-        console.log(authData);
 
         var fireBaseRefs = {
             ref           :  new Firebase('https://optionsjs.firebaseio.com'),

@@ -3,7 +3,7 @@
 // need help to bang the OAuth
 // where are the modules loaded?
 
-angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase' ])
+angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
@@ -25,6 +25,7 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
         .state('index.upload', {
             url: "/upload",
             templateUrl: "app/upload/upload.html",
+            controller: "UploadCtrl",
             data: { pageTitle: 'Upload' }
         })
         .state('index.portfolio', {
@@ -51,9 +52,7 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
 
     $scope.auth.$onAuth(function(authData) {
       $scope.authData = authData;
-      console.log(authData);
       if(authData){
-        console.log(authData.google)
         var uid = authData.uid
 
         var google = {
