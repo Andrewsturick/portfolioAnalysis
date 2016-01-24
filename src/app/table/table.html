@@ -1,18 +1,48 @@
-<table st-table="portfolio" class="table table-striped">
+<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">
+	<div ng-if="isShowing" class="panel-1-info-wrapper">
+		<div class="top-row-in-dashboard-1">
+			<span  class="col-xs-3 dashboard-symbol-h1">{{equitiesTracker[isShowing].currentQuote.Symbol}}</span>
+			<span class="col-xs-4 pull-right highs-and-lows">
+				<p class="pull-right"id="hi">Hi: {{equitiesTracker[isShowing].currentQuote.DaysHigh}}</p>
+				<p class="pull-right"id="low">Low: {{equitiesTracker[isShowing].currentQuote.DaysLow}}</p>
 
-	<thead>
+			</span>
+		</div>
+		<span><h2 class="dashboard-quote-h2 col-center">{{equitiesTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
+		<h3 class="current-symbol-change"
+		ng-class=" {green : changeIsPositive(equitiesTracker[isShowing].currentQuote.ChangeinPercent),
+			red    : changeIsNegative(equitiesTracker[isShowing].currentQuote.ChangeinPercent)} ">
+			{{equitiesTracker[isShowing].currentQuote.Change}}
+			<span >({{equitiesTracker[isShowing].currentQuote.ChangeinPercent}})</span>
+		</h3>
+	</div>
+</div>
+
+
+
+
+
+<table st-table="portfolio" class="table equities-table">
+	<thead class="thead">
 		<!-- dynamic  -->
-    <tr>
     	<th st-sort="Symbol">Symbol</th>
+			<th st-sort="Change">Change(%)</th>
+			<th st-sort="Mark">Mark</th>
 			<th st-sort="Qty">Qty</th>
 			<th st-sort="trade_price">Trade Price</th>
-    </tr>
+			<th st-sort="trade_price">Total Exposure</th>
+
   </thead>
   <tbody>
-  	<tr ng-repeat="(k, v) in portfolio">
-  		<td>{{v.Symbol}}</td>
-  		<td>{{v.Qty}}</td>
-			<td>{{v.Trade_Price}}</td>
+  	<tr class="equities-portfolio-row" ng-click="showPositionAndStock(v.Symbol)" ng-repeat="(i, v) in portfolio">
+  		<td><p class="table-text">{{v.Symbol}}</p></td>
+			<td><p class=table-text>{{equitiesTracker[v.Symbol].currentQuote.Change}} ({{equitiesTracker[v.Symbol].currentQuote.ChangeinPercent}})</p></td>
+			<td><p class="table-text">{{equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly}}</p></td>
+			<td><p class="table-text">{{v.Qty}}</p></td>
+			<td><p class="table-text">{{v.Trade_Price}}</p></td>
+			<td><p class="table-text">{{(+v.Qty)*(+equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly) | currency}}</p></td>
+
+
   	</tr>
 	</tbody>
 </table>
