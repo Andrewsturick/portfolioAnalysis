@@ -37,9 +37,3 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
     var ref = new Firebase("https://optionsjs.firebaseio.com");
     return $firebaseAuth(ref);
   })
-
-  .controller("homeCtrl", function($scope, $rootScope, Auth, $http, $firebaseArray, $location) {
-    // all auth should be handled here
-    
-
-  });

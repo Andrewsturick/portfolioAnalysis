@@ -11,6 +11,11 @@ angular.module('inspinia')
           $location.path('/index/login')
         }
 
+        csvRef.on('value', function(snap){
+          console.log(snap.val())
+          console.log(snap.key())
+        })
+
         $scope.csv = {
         	content: null,
         	header: true,
@@ -22,11 +27,18 @@ angular.module('inspinia')
         	encodingVisible: true,
         };
 
+        var onComplete = function(err) {
+          if (err) {
+            console.log('Synchronization failed');
+          } else {
+            $location.path('/index/table')
+          }
+        };
+
         $scope.uploadFile = function(file) {
-          console.log(file);
           csvRef.child(authData.uid).update({
             csv: file,
             id: authData.uid
-          })
+          }, onComplete)
         };
     })

@@ -7,7 +7,6 @@ angular.module('inspinia')
 
     Auth.$onAuth(function(authData) {
       if(authData){
-        console.log(authData.google)
         $scope.authData = authData;
 
         function capitalizeFirstLetter(string) {

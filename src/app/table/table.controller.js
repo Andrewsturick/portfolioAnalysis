@@ -8,22 +8,20 @@ angular.module('inspinia')
         var equitiesTrackerRef  = new Firebase('https://optionsjs.firebaseio.com/portfolio/equities')
         var optionsTrackerRef   = new Firebase('https://optionsjs.firebaseio.com/portfolio/options')
 
-
         if(!authData){
           $location.path('/index/login')
         }
 
         else {
-          equityRef.once('value', function(snap){
-            if(!snap.val()){
-              $location.path('index/upload')
-            }
-          })
 
           $timeout(function() {
             $scope.portfolio       = $firebaseObject(equityRef)
             $scope.equitiesTracker = $firebaseObject(equitiesTrackerRef)
             $scope.optionsTracker  = $firebaseObject(optionsTrackerRef)
+
+            if(!$scope.portfolio.$value){
+              $location.path('/index/upload')
+            }
           })
         }
 

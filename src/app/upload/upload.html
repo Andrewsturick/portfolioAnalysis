@@ -1,8 +1,20 @@
-<ng-csv-import content="csv.content"
-    header="csv.header"
-    separator="csv.separator"
-    result="csv.result"
-    accept="csv.accept"></ng-csv-import>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="text-center m-t-lg">
+              <div>
 
+                <ng-csv-import content="csv.content"
+                header="csv.header"
+                separator="csv.separator"
+                result="csv.result"
+                accept="csv.accept"></ng-csv-import>
 
-<button ng-click="uploadFile(csv.content)"></button>
+              </div>
+
+              <button ng-click="uploadFile(csv.content)" class="btn btn-primary block m-b">Upload Portfolio</button>
+
+            </div>
+        </div>
+    </div>
+</div>
