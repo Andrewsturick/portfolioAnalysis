@@ -12,8 +12,8 @@ angular.module('inspinia')
         function capitalizeFirstLetter(string) {
           return string.charAt(0).toUpperCase() + string.slice(1);
         }
-
         $scope.userName = capitalizeFirstLetter(authData.google.cachedUserProfile.given_name)
+
         $scope.userImage = authData.google.cachedUserProfile.picture
         $location.path('/index/table')
 
