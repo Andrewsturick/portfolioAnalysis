@@ -1,11 +1,15 @@
 'use strict'
 
 angular.module('inspinia')
-      .controller('UploadCtrl', function($scope, Auth, $http, Upload){
+      .controller('UploadCtrl', function($scope, Auth, $http, Upload, $location){
 
         var ref = new Firebase("https://optionsjs.firebaseio.com/users")
         var csvRef = new Firebase("https://optionsjs.firebaseio.com/csvs")
         var authData = ref.getAuth()
+
+        if(!authData){
+          $location.path('/index/login')
+        }
 
         $scope.csv = {
         	content: null,
@@ -22,7 +26,7 @@ angular.module('inspinia')
           console.log(file);
           csvRef.child(authData.uid).update({
             csv: file,
-            id: authData.uid  
+            id: authData.uid
           })
         };
     })

@@ -29,13 +29,6 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
             controller: "tableCtrl",
             data: { pageTitle: 'Table' }
         })
-        .state('index.portfolio', {
-          url: '/portfolio',
-          templateUrl: 'app/portfolio/portoflio.html',
-          controller: 'portfolioCtrl',
-          data: {pageTitle: 'Portfolios'}
-        })
-
 
     $urlRouterProvider.otherwise('/index/login');
   })
@@ -46,34 +39,7 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   })
 
   .controller("homeCtrl", function($scope, $rootScope, Auth, $http, $firebaseArray, $location) {
-    $scope.auth = Auth;
+    // all auth should be handled here
+    
 
-    $scope.logout = function(){
-      Auth.$unauth()
-      $location.path('/index/login')
-      console.log()
-    }
-
-
-    if($scope.authData){
-      $location.path('/index/table')
-    }
-
-    $scope.auth.$onAuth(function(authData) {
-      $scope.authData = authData;
-      if(authData){
-        $location.path('/index/table')
-        var uid = authData.uid
-        var google = {
-          name: authData.google.displayName,
-          img: authData.google.profileImageURL
-        }
-
-        // send user data to fb for streaming
-        var userRef = new Firebase("https://optionsjs.firebaseio.com/users")
-        userRef.child(uid).update(google)
-
-        // $scope.profileImg = authData.twitter.profileImageURL;
-      }
-    });
   });
