@@ -26,7 +26,6 @@ angular.module('inspinia')
           if (err) {
             console.log('Synchronization failed');
           } else {
-            console.log("Upload good")
             $location.path('/index/table')
           }
         };
