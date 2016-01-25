@@ -1,48 +1,115 @@
-<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">
-	<div ng-if="isShowing" class="panel-1-info-wrapper">
-		<div class="top-row-in-dashboard-1">
-			<span  class="col-xs-3 dashboard-symbol-h1">{{equitiesTracker[isShowing].currentQuote.Symbol}}</span>
-			<span class="col-xs-4 pull-right highs-and-lows">
-				<p class="pull-right"id="hi">Hi: {{equitiesTracker[isShowing].currentQuote.DaysHigh}}</p>
-				<p class="pull-right"id="low">Low: {{equitiesTracker[isShowing].currentQuote.DaysLow}}</p>
+<div ng-if="userRef.name" id="portfolio-header">
 
-			</span>
-		</div>
-		<span><h2 class="dashboard-quote-h2 col-center">{{equitiesTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
-		<h3 class="current-symbol-change"
-		ng-class=" {green : changeIsPositive(equitiesTracker[isShowing].currentQuote.ChangeinPercent),
-			red    : changeIsNegative(equitiesTracker[isShowing].currentQuote.ChangeinPercent)} ">
-			{{equitiesTracker[isShowing].currentQuote.Change}}
-			<span >({{equitiesTracker[isShowing].currentQuote.ChangeinPercent}})</span>
-		</h3>
+	<h1 id="portfolio-user-name">{{userRef.name}} 's
+		<span ng-if="isDisplaying.equities">Equities</span>
+		<span ng-if="isDisplaying.options">Options</span>
+
+		Portfolio</h1><br>
+	<div class="portfolio-chooser-buttons">
+		<button ng-click="showEquities()">Equities</button><button ng-click="showOptions()">Options</button>
 	</div>
 </div>
-
-
-
-
-
-<table st-table="portfolio" class="table equities-table">
-	<thead class="thead">
-		<!-- dynamic  -->
-    	<th st-sort="Symbol">Symbol</th>
+<h1 ng-if="!userRef.name" > LOADING!!!</h1>
+<br><hr>
+<div ng-if="isDisplaying.equities" class="equities-holder">
+	<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">
+		<div ng-if="equitiesTracker[isShowing]" class="panel-1-info-wrapper">
+			<div class="top-row-in-dashboard-1">
+				<span  class="col-xs-3 dashboard-symbol-h1">{{equitiesTracker[isShowing].currentQuote.Symbol}}</span>
+				<span class="col-xs-4 pull-right highs-and-lows">
+					<p class="pull-right"id="hi">Hi: {{equitiesTracker[isShowing].currentQuote.DaysHigh}}</p>
+					<p class="pull-right"id="low">Low: {{equitiesTracker[isShowing].currentQuote.DaysLow}}</p>
+				</span>
+			</div>
+			<span><h2 class="dashboard-quote-h2 col-center">{{equitiesTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
+			<h3 class="current-symbol-change"
+			ng-class=" {green : changeIsPositive(equitiesTracker[isShowing].currentQuote.ChangeinPercent),
+				red    : changeIsNegative(equitiesTracker[isShowing].currentQuote.ChangeinPercent)} ">
+				{{equitiesTracker[isShowing].currentQuote.Change}}
+				<span >({{equitiesTracker[isShowing].currentQuote.ChangeinPercent}})</span>
+			</h3>
+			<h2 id="company-description">{{portfolio[isShowing].Description}}</h2>
+		</div>
+	</div>
+	<table st-table="portfolio" class="table equities-table">
+		<thead class="thead">
+			<!-- dynamic  -->
+			<th st-sort="Symbol">Symbol</th>
 			<th st-sort="Change">Change(%)</th>
 			<th st-sort="Mark">Mark</th>
 			<th st-sort="Qty">Qty</th>
 			<th st-sort="trade_price">Trade Price</th>
 			<th st-sort="trade_price">Total Exposure</th>
 
-  </thead>
-  <tbody>
-  	<tr class="equities-portfolio-row" ng-click="showPositionAndStock(v.Symbol)" ng-repeat="(i, v) in portfolio">
-  		<td><p class="table-text">{{v.Symbol}}</p></td>
-			<td><p class=table-text>{{equitiesTracker[v.Symbol].currentQuote.Change}} ({{equitiesTracker[v.Symbol].currentQuote.ChangeinPercent}})</p></td>
-			<td><p class="table-text">{{equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly}}</p></td>
-			<td><p class="table-text">{{v.Qty}}</p></td>
-			<td><p class="table-text">{{v.Trade_Price}}</p></td>
-			<td><p class="table-text">{{(+v.Qty)*(+equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly) | currency}}</p></td>
+		</thead>
+		<tbody>
+			<tr class="equities-portfolio-row" ng-click="showPositionAndStock(v.Symbol)" ng-repeat="(i, v) in portfolio">
+				<td><p class="table-text">{{v.Symbol}}</p></td>
+				<td><p class=table-text>{{equitiesTracker[v.Symbol].currentQuote.Change}} ({{equitiesTracker[v.Symbol].currentQuote.ChangeinPercent}})</p></td>
+				<td><p class="table-text">{{equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly}}</p></td>
+				<td><p class="table-text">{{v.Qty}}</p></td>
+				<td><p class="table-text">{{v.Trade_Price}}</p></td>
+				<td><p class="table-text">{{(+v.Qty)*(+equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly) | currency}}</p></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 
 
-  	</tr>
-	</tbody>
-</table>
+
+
+
+
+<div ng-if="isDisplaying.options" class="equities-holder">
+	fadfafad
+	<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">
+		<div ng-if="optionsTracker[isShowing]" class="panel-1-info-wrapper">
+			<div class="top-row-in-dashboard-1">
+				<span  class="col-xs-3 dashboard-symbol-h1">{{optionsTracker[isShowing].currentQuote.Symbol}}</span>
+				<span class="col-xs-4 pull-right highs-and-lows">
+					<p class="pull-right"id="hi">Hi: {{optionsTracker[isShowing].currentQuote.DaysHigh}}</p>
+					<p class="pull-right"id="low">Low: {{optionsTracker[isShowing].currentQuote.DaysLow}}</p>
+				</span>
+			</div>
+			<span><h2 class="dashboard-quote-h2 col-center">{{optionsTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
+			<h3 class="current-symbol-change"
+			ng-class=" {green : changeIsPositive(optionsTracker[isShowing].currentQuote.ChangeinPercent),
+				red    : changeIsNegative(optionsTracker[isShowing].currentQuote.ChangeinPercent)} ">
+				{{optionsTracker[isShowing].currentQuote.Change}}
+				<span >({{optionsTracker[isShowing].currentQuote.ChangeinPercent}})</span>
+			</h3>
+			<h2 id="company-description">{{portfolio[isShowing].Description}}</h2>
+		</div>
+	</div>
+	<table st-table="portfolio" class="table options-table">
+		<!-- <tr class="thead">
+
+			<!-- <td st-sort="Symbol">Symbol</td>
+			<td st-sort="Change">Change(%)</td>
+			<td st-sort="Mark">Mark</td>
+			<td st-sort="Qty">Qty</td>
+			<td st-sort="trade_price">Trade Price</td>
+			<td st-sort="trade_price">Total Exposure</td>
+
+		</tr> -->
+		<tbody>
+			<tr class="options-portfolio-row" ng-click="showPositionAndStock(option.positions[0].Symbol)" ng-repeat="(i, option) in optionsPortfolio">
+				<td class="options-table-stock-group">
+					<table class="inner-table">
+						<tr ng-repeat="position in option.positions">
+						<td>{{position.Symbol}}</td>
+						<td>{{position.Strike}}</td>
+						<td>{{position.Type}}</td>
+						<td>{{position.Qty}}</td>
+						<td>{{position.Trade_Price}}</td>
+						<td>{{position.Mark}}</td>
+						</tr>
+
+					</table>
+				</td>
+
+
+
+		</tbody>
+	</table>
+</div>
