@@ -1,10 +1,41 @@
 'use strict';
 
+// this is the login controller, only wraps login functionality
 angular.module('inspinia')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, Auth, $location) {
+    $scope.auth = Auth
 
-    this.userName = 'Example user';
-    this.helloText = 'Login screen';
-    this.descriptionText = 'It is an application skeleton for a typical AngularJS web app. You can use it to quickly bootstrap your angular webapp projects.';
+    Auth.$onAuth(function(authData) {
+      if(authData){
+        console.log(authData.google)
+        $scope.authData = authData;
+
+        function capitalizeFirstLetter(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        $scope.userName = capitalizeFirstLetter(authData.google.cachedUserProfile.given_name)
+        $scope.userImage = authData.google.cachedUserProfile.picture
+        $location.path('/index/table')
+
+        var uid = authData.uid
+
+        var google = {
+          name: authData.google.displayName,
+          img: authData.google.profileImageURL
+        }
+
+        // send user data to firebase
+        var userRef = new Firebase("https://optionsjs.firebaseio.com/users")
+        userRef.child(uid).update(google)
+
+      }
+    });
+
+    $scope.logout = function(){
+      Auth.$unauth()
+      $scope.authData = null;
+      $location.path('/index/login')
+    }
 
   });

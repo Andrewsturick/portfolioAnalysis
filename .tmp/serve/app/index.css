@@ -8790,6 +8790,7 @@ body {
 .gray-bg {
   background-color: white;
 }
+<<<<<<< HEAD
 #company-description {
   text-align: center;
 }
@@ -8816,6 +8817,10 @@ body {
 }
 .options-table-stock-group:hover {
   border: 3px solid lightblue;
+=======
+.profile-img-google {
+  width: 50px;
+>>>>>>> 5f9e2b876f180ff6ee793fcb21e1ebaf4732a717
 }
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject

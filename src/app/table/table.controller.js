@@ -1,28 +1,32 @@
 'use strict'
 
 angular.module('inspinia')
-      .controller('tableCtrl', function($scope, Auth, $firebaseArray, $firebaseObject, $location, $timeout){
+      .controller('tableCtrl', function($scope, Auth, $firebaseObject, $location, $timeout){
+
+        var authData            = Auth.$getAuth()
+        var equityRef           = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
+        var equitiesTrackerRef  = new Firebase('https://optionsjs.firebaseio.com/portfolio/equities')
+        var optionsTrackerRef   = new Firebase('https://optionsjs.firebaseio.com/portfolio/options')
 
 
-        var authRef            = new Firebase("https://optionsjs.firebaseio.com")
-        var authData           = authRef.getAuth()
-        var equitiesTrackerRef = new Firebase('https://optionsjs.firebaseio.com/portfolio/equities')
-        var optionsTrackerRef  = new Firebase('https://optionsjs.firebaseio.com/portfolio/options')
         if(!authData){
           $location.path('/index/login')
-        } else{
-          var equityRef        = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
-          var optionsRef       = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/options')
-          var userRef          = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid)
+
         }
-        if(!equityRef){
-          $location.path('/index/upload')
-        }
+
+        else {
+          equityRef.once('value', function(snap){
+            if(!snap.val()){
+              $location.path('index/upload')
+            }
+          })
+
         $scope.isDisplaying = {
           options: false,
           equities: false
         }
         $scope.isShowing;
+
         $scope.showEquities = function(){
           console.log('showequticies');
           $scope.isDisplaying.options = false;
@@ -40,9 +44,6 @@ angular.module('inspinia')
           $scope.optionsTracker  = $firebaseObject(optionsTrackerRef)
           $scope.userRef         = $firebaseObject(userRef)
         })
-
-
-
 
 
         $scope.showPositionAndStock = function(index){

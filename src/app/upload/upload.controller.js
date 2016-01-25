@@ -7,6 +7,10 @@ angular.module('inspinia')
         var csvRef = new Firebase("https://optionsjs.firebaseio.com/csvs")
         var authData = ref.getAuth()
 
+        if(!authData){
+          $location.path('/index/login')
+        }
+
         $scope.csv = {
         	content: null,
         	header: true,
