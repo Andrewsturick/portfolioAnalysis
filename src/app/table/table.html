@@ -9,7 +9,12 @@
 		<button ng-click="showEquities()">Equities</button><button ng-click="showOptions()">Options</button>
 	</div>
 </div>
-<h1 ng-if="!userRef.name" > LOADING!!!</h1>
+<span ng-if="!userRef.name" >
+	<div class="sk-spinner sk-spinner-three-bounce">
+                            <div class="sk-bounce1"></div>
+                            <div class="sk-bounce2"></div>
+                            <div class="sk-bounce3"></div>
+                        </div></span>
 <br><hr>
 <div ng-if="isDisplaying.equities" class="equities-holder">
 	<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">

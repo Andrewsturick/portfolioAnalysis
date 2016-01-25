@@ -6,6 +6,7 @@ angular.module('inspinia')
         var ref = new Firebase("https://optionsjs.firebaseio.com/users")
         var csvRef = new Firebase("https://optionsjs.firebaseio.com/csvs")
         var authData = ref.getAuth()
+        var userRef = new Firebase("https://optionsjs.firebaseio.com/users/" + authData.uid + "/currentPortfolio")
 
         if(!authData){
           $location.path('/index/login')
@@ -22,13 +23,22 @@ angular.module('inspinia')
         	encodingVisible: true,
         };
 
+        // user ref for the current portfolio to show
+        userRef.on('value', function(snap){
+          console.log(snap.val())
+          if(snap.val()) $location.path('/index/table')
+          $scope.csvReturn = true;
+        })
+
         var onComplete = function(err) {
           if (err) {
             console.log('Synchronization failed');
           } else {
-            $location.path('/index/table')
+            $scope.csvReturn = false;
           }
         };
+
+
 
         $scope.uploadFile = function(file) {
           csvRef.child(authData.uid).update({
