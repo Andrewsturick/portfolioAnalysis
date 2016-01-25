@@ -5,9 +5,10 @@ angular.module('inspinia')
 
         var authData            = Auth.$getAuth()
         var equityRef           = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
+        var optionsRef          = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/options')
         var equitiesTrackerRef  = new Firebase('https://optionsjs.firebaseio.com/portfolio/equities')
         var optionsTrackerRef   = new Firebase('https://optionsjs.firebaseio.com/portfolio/options')
-
+        var userRef             = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid)
 
         if(!authData){
           $location.path('/index/login')
@@ -43,6 +44,7 @@ angular.module('inspinia')
           $scope.equitiesTracker = $firebaseObject(equitiesTrackerRef)
           $scope.optionsTracker  = $firebaseObject(optionsTrackerRef)
           $scope.userRef         = $firebaseObject(userRef)
+          console.log($scope.optionsPortfolio)
         })
 
 
@@ -60,4 +62,4 @@ angular.module('inspinia')
 
 
 
-  })
+  }})
