@@ -12,6 +12,8 @@ angular.module('inspinia')
           $location.path('/index/login')
         }
 
+        // check for the portfolio
+
         else {
 
           $timeout(function() {
@@ -19,7 +21,7 @@ angular.module('inspinia')
             $scope.equitiesTracker = $firebaseObject(equitiesTrackerRef)
             $scope.optionsTracker  = $firebaseObject(optionsTrackerRef)
 
-            if(!$scope.portfolio.$value){
+            if(!$scope.portfolio){
               $location.path('/index/upload')
             }
           })

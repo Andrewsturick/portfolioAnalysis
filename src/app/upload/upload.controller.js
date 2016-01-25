@@ -11,11 +11,6 @@ angular.module('inspinia')
           $location.path('/index/login')
         }
 
-        csvRef.on('value', function(snap){
-          console.log(snap.val())
-          console.log(snap.key())
-        })
-
         $scope.csv = {
         	content: null,
         	header: true,
@@ -31,6 +26,7 @@ angular.module('inspinia')
           if (err) {
             console.log('Synchronization failed');
           } else {
+            console.log("Upload good")
             $location.path('/index/table')
           }
         };
@@ -39,6 +35,6 @@ angular.module('inspinia')
           csvRef.child(authData.uid).update({
             csv: file,
             id: authData.uid
-          }, onComplete)
+          }, onComplete())
         };
     })
