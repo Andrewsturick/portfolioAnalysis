@@ -18,24 +18,26 @@
 <br><hr>
 <div ng-if="isDisplaying.equities" class="equities-holder">
 	<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">
-		<div ng-if="equitiesTracker[isShowing]" class="panel-1-info-wrapper">
+		<div ng-if="symbolTracker[isShowing]" class="panel-1-info-wrapper">
 			<div class="top-row-in-dashboard-1">
-				<span  class="col-xs-3 dashboard-symbol-h1">{{equitiesTracker[isShowing].currentQuote.Symbol}}</span>
+				<span  class="col-xs-3 dashboard-symbol-h1">{{symbolTracker[isShowing].currentQuote.Symbol}}</span>
 				<span class="col-xs-4 pull-right highs-and-lows">
-					<p class="pull-right"id="hi">Hi: {{equitiesTracker[isShowing].currentQuote.DaysHigh}}</p>
-					<p class="pull-right"id="low">Low: {{equitiesTracker[isShowing].currentQuote.DaysLow}}</p>
+					<p class="pull-right"id="hi">Hi: {{symbolTracker[isShowing].currentQuote.DaysHigh}}</p>
+					<p class="pull-right"id="low">Low: {{symbolTracker[isShowing].currentQuote.DaysLow}}</p>
 				</span>
 			</div>
-			<span><h2 class="dashboard-quote-h2 col-center">{{equitiesTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
+			<span><h2 class="dashboard-quote-h2 col-center">{{symbolTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
 			<h3 class="current-symbol-change"
-			ng-class=" {green : changeIsPositive(equitiesTracker[isShowing].currentQuote.ChangeinPercent),
-				red    : changeIsNegative(equitiesTracker[isShowing].currentQuote.ChangeinPercent)} ">
-				{{equitiesTracker[isShowing].currentQuote.Change}}
-				<span >({{equitiesTracker[isShowing].currentQuote.ChangeinPercent}})</span>
+			ng-class=" {green : changeIsPositive(symbolTracker[isShowing].currentQuote.ChangeinPercent),
+				red    : changeIsNegative(symbolTracker[isShowing].currentQuote.ChangeinPercent)} ">
+				{{symbolTracker[isShowing].currentQuote.Change}}
+				<span >({{symbolTracker[isShowing].currentQuote.ChangeinPercent}})</span>
 			</h3>
 			<h2 id="company-description">{{portfolio[isShowing].Description}}</h2>
 		</div>
 	</div>
+	<div ui-sref="index.options" class="col-sm-8"></div>
+
 	<table st-table="portfolio" class="table equities-table">
 		<thead class="thead">
 			<!-- dynamic  -->
@@ -50,11 +52,11 @@
 		<tbody>
 			<tr class="equities-portfolio-row" ng-click="showPositionAndStock(v.Symbol)" ng-repeat="(i, v) in portfolio">
 				<td><p class="table-text">{{v.Symbol}}</p></td>
-				<td><p class=table-text>{{equitiesTracker[v.Symbol].currentQuote.Change}} ({{equitiesTracker[v.Symbol].currentQuote.ChangeinPercent}})</p></td>
-				<td><p class="table-text">{{equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly}}</p></td>
+				<td><p class=table-text>{{symbolTracker[v.Symbol].currentQuote.Change}} ({{symbolTracker[v.Symbol].currentQuote.ChangeinPercent}})</p></td>
+				<td><p class="table-text">{{symbolTracker[v.Symbol].currentQuote.LastTradePriceOnly}}</p></td>
 				<td><p class="table-text">{{v.Qty}}</p></td>
 				<td><p class="table-text">{{v.Trade_Price}}</p></td>
-				<td><p class="table-text">{{(+v.Qty)*(+equitiesTracker[v.Symbol].currentQuote.LastTradePriceOnly) | currency}}</p></td>
+				<td><p class="table-text">{{(+v.Qty)*(+symbolTracker[v.Symbol].currentQuote.LastTradePriceOnly) | currency}}</p></td>
 			</tr>
 		</tbody>
 	</table>
@@ -68,24 +70,25 @@
 <div ng-if="isDisplaying.options" class="equities-holder">
 	fadfafad
 	<div class="col-sm-4 col-xs-12" id="equities-dashboard-panel-1">
-		<div ng-if="optionsTracker[isShowing]" class="panel-1-info-wrapper">
+		<div ng-if="symbolTracker[isShowing]" class="panel-1-info-wrapper">
 			<div class="top-row-in-dashboard-1">
-				<span  class="col-xs-3 dashboard-symbol-h1">{{optionsTracker[isShowing].currentQuote.Symbol}}</span>
+				<span  class="col-xs-3 dashboard-symbol-h1">{{symbolTracker[isShowing].currentQuote.Symbol}}</span>
 				<span class="col-xs-4 pull-right highs-and-lows">
-					<p class="pull-right"id="hi">Hi: {{optionsTracker[isShowing].currentQuote.DaysHigh}}</p>
-					<p class="pull-right"id="low">Low: {{optionsTracker[isShowing].currentQuote.DaysLow}}</p>
+					<p class="pull-right"id="hi">Hi: {{symbolTracker[isShowing].currentQuote.DaysHigh}}</p>
+					<p class="pull-right"id="low">Low: {{symbolTracker[isShowing].currentQuote.DaysLow}}</p>
 				</span>
 			</div>
-			<span><h2 class="dashboard-quote-h2 col-center">{{optionsTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
+			<span><h2 class="dashboard-quote-h2 col-center">{{symbolTracker[isShowing].currentQuote.LastTradePriceOnly}}</h2></span>
 			<h3 class="current-symbol-change"
-			ng-class=" {green : changeIsPositive(optionsTracker[isShowing].currentQuote.ChangeinPercent),
-				red    : changeIsNegative(optionsTracker[isShowing].currentQuote.ChangeinPercent)} ">
-				{{optionsTracker[isShowing].currentQuote.Change}}
-				<span >({{optionsTracker[isShowing].currentQuote.ChangeinPercent}})</span>
+			ng-class=" {green : changeIsPositive(symbolTracker[isShowing].currentQuote.ChangeinPercent),
+				red    : changeIsNegative(symbolTracker[isShowing].currentQuote.ChangeinPercent)} ">
+				{{symbolTracker[isShowing].currentQuote.Change}}
+				<span >({{symbolTracker[isShowing].currentQuote.ChangeinPercent}})</span>
 			</h3>
 			<h2 id="company-description">{{portfolio[isShowing].Description}}</h2>
 		</div>
 	</div>
+	<div class="col-sm-8">hello!</div>
 	<table st-table="portfolio" class="table options-table">
 		<!-- <tr class="thead">
 

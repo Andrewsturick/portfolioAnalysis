@@ -1,0 +1,58 @@
+<h1 class="chain-header">{{symbol}} Option Chain</h1>
+<br><br>
+ <table class=" table table-bordered ">
+    <th  ng-repeat="(i, header) in dataShown track by $index">
+      <div class="dropdown">
+        <div class="dropdown-toggle" type="button" id="header.title" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {{header.title}}
+          <span class="caret"></span>
+        </div>
+        <ul class="dropdown-menu" aria-labelledby="header.title">
+          <li role="separator" class="divider">Greeks</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'call') "ng-repeat="data in headers.greeks ">{{data}}</li>
+          <li role="separator" class="divider">Price</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'call')"ng-repeat="data in headers.price  ">{{data}}</li>
+          <li role="separator" class="divider">Volatility</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'call')"ng-repeat="data in headers.volatility ">{{data}}</li>
+          <li role="separator" class="divider">{{"Expiration"}}</li>
+          <li class="option-chain-dropdown" >{{headers.expiration}}</li>
+        </ul>
+      </div>
+    </th>
+    <th>Bid</th>
+    <th>Ask</th>
+    <th class="strike">Strike</th>
+    <th>Bid</th>
+    <th>Ask</th>
+    <th ng-repeat="(i, header) in dataShown | reverse">
+      <div class="dropdown">
+        <div class="dropdown-toggle" type="button" id="header.title" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          {{header.title}}
+          <span class="caret"></span>
+        </div>
+        <ul class="dropdown-menu" aria-labelledby="header.title">
+          <li role="separator" class="divider">Greeks</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')"ng-repeat="data in headers.greeks track by $index">{{data}}</li>
+          <li role="separator" class="divider">Price</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')"ng-repeat="data in headers.price track by $index">{{data}}</li>
+          <li role="separator" class="divider">Volatility</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')"ng-repeat="data in headers.volatility track by $index">{{data}}</li>
+          <li role="separator" class="divider">Expiration</li>
+          <li class="option-chain-dropdown" >{{headers.expiration}}</li>
+        </ul>
+      </div>
+    </th>
+    <tbody>
+      <tr ng-repeat="strike in symbolTracker[symbol].chain">
+        <td ng-repeat="(i, header) in dataShown track by $index">{{ Math.round(strike.call[header.key]*100)/100  || strike.call[header.key] || "N/A"}}</td>
+        <td>{{Math.round(strike.call['bid']*100)/100 || strike.call['bid']}}</td>
+        <td>{{Math.round(strike.call['ask']*100)/100 || strike.call['ask']}}</td>
+        <td>{{strike.put['strike'].replace("@",".")}}</td>
+        <td>{{Math.round(strike.put['bid']*100)/100 || strike.put['bid']}}</td>
+        <td>{{Math.round(strike.put['ask']*100)/100 || strike.put['ask']}}</td>
+        <td ng-repeat="(i, header) in dataShown | reverse track by $index">{{ Math.round(strike.put[header.key]*100)/100 || strike.call[header.key]  || "N/A"}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

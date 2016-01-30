@@ -29,6 +29,11 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
             controller: "tableCtrl",
             data: { pageTitle: 'Table' }
         })
+        .state('index.chain', {
+          url: '/chain/{symbol}',
+          templateUrl: 'app/chain/chain.html',
+          controller: 'ChainCtrl'
+        })
 
     $urlRouterProvider.otherwise('/index/login');
   })
@@ -36,4 +41,11 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
   .factory("Auth", function($firebaseAuth) {
     var ref = new Firebase("https://optionsjs.firebaseio.com");
     return $firebaseAuth(ref);
+  })
+  
+
+  .filter('reverse', function(){
+    return function(i){
+      return i.slice().reverse();
+    }
   })

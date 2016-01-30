@@ -15,7 +15,7 @@ angular.module('inspinia')
         $scope.userName = capitalizeFirstLetter(authData.google.cachedUserProfile.given_name)
 
         $scope.userImage = authData.google.cachedUserProfile.picture
-        $location.path('/index/table')
+        // $location.path('/index/table')
 
         var uid = authData.uid
 
