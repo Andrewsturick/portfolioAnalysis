@@ -8763,7 +8763,7 @@ body {
   text-align: center;
 }
 .dashboard-quote-h2 {
-  margin-top: 8.5vh;
+  margin-top: 8.5 vh;
 }
 .top-row-in-dashboard-1 {
   min-height: 6vh;
@@ -8867,6 +8867,16 @@ td {
 }
 tbody {
   margin-left: 50px;
+}
+.table,
+.table-holder {
+  height: 50vh;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+#threejs {
+  height: 500px;
+  width: 500px;
 }
 /**
 

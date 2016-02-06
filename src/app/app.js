@@ -3,7 +3,7 @@
 // need help to bang the OAuth
 // where are the modules loaded?
 
-angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
+angular.module('inspinia', ['d3', 'threejs','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
@@ -34,15 +34,25 @@ angular.module('inspinia', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', '
           templateUrl: 'app/chain/chain.html',
           controller: 'ChainCtrl'
         })
+        .state('index.viz',{
+          url: '/viz',
+          templateUrl: 'app/viz/viz.html',
+          controller: 'VizCtrl'
+        })
+        .state('index.threeviz', {
+          url: '/threeviz',
+          templateUrl: 'app/threeviz/threeviz.html',
+          controller: 'ThreeVizCtrl'
+        })
 
     $urlRouterProvider.otherwise('/index/login');
   })
 
   .factory("Auth", function($firebaseAuth) {
-    var ref = new Firebase("https://optionsjs.firebaseio.com");
+    var ref = new Firebase("https://rooftoptrading.firebaseio.com");
     return $firebaseAuth(ref);
   })
-  
+
 
   .filter('reverse', function(){
     return function(i){

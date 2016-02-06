@@ -3,10 +3,10 @@
 angular.module('inspinia')
       .controller('UploadCtrl', function($scope, Auth, $http, Upload, $location){
 
-        var ref = new Firebase("https://optionsjs.firebaseio.com/users")
-        var csvRef = new Firebase("https://optionsjs.firebaseio.com/csvs")
+        var ref = new Firebase("https://rooftoptrading.firebaseio.com/users")
+        var csvRef = new Firebase("https://rooftoptrading.firebaseio.com/csvs")
         var authData = ref.getAuth()
-        var userRef = new Firebase("https://optionsjs.firebaseio.com/users/" + authData.uid + "/currentPortfolio")
+        var userRef = new Firebase("https://rooftoptrading.firebaseio.com/users/" + authData.uid + "/currentPortfolio")
 
         if(!authData){
           $location.path('/index/login')

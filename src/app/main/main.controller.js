@@ -25,7 +25,7 @@ angular.module('inspinia')
         }
 
         // send user data to firebase
-        var userRef = new Firebase("https://optionsjs.firebaseio.com/users")
+        var userRef = new Firebase("https://rooftoptrading.firebaseio.com/users")
         userRef.child(uid).update(google)
 
       }

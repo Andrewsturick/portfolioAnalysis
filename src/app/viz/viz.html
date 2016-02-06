@@ -1,0 +1,6 @@
+
+<select ng-model='currentlySelected' name="" id="">
+  <option ng-repeat="option in chartOptions" value="{{option.key}}" >{{option.title}}</option>
+</select>
+<d3-bars click-event="clickEvent(item)" data="{{symbolTracker}}" looking-at="{{currentlySelected}}" class="test-hold" bar-height="50px" bar-padding="50px"></d3-bars>
+{{detailItem}}

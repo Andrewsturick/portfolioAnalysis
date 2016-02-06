@@ -1,5 +1,6 @@
 <h1 class="chain-header">{{symbol}} Option Chain</h1>
 <br><br>
+<div class="table-holder">
  <table class=" table table-bordered ">
     <th  ng-repeat="(i, header) in dataShown track by $index">
       <div class="dropdown">
@@ -32,18 +33,18 @@
         </div>
         <ul class="dropdown-menu" aria-labelledby="header.title">
           <li role="separator" class="divider">Greeks</li>
-          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')"ng-repeat="data in headers.greeks track by $index">{{data}}</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')" ng-repeat="data in headers.greeks track by $index">{{data}}</li>
           <li role="separator" class="divider">Price</li>
-          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')"ng-repeat="data in headers.price track by $index">{{data}}</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')" ng-repeat="data in headers.price track by $index">{{data}}</li>
           <li role="separator" class="divider">Volatility</li>
-          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')"ng-repeat="data in headers.volatility track by $index">{{data}}</li>
+          <li  class="option-chain-dropdown" ng-click="addToDataShown(i, data, 'put')" ng-repeat="data in headers.volatility track by $index">{{data}}</li>
           <li role="separator" class="divider">Expiration</li>
           <li class="option-chain-dropdown" >{{headers.expiration}}</li>
         </ul>
       </div>
     </th>
     <tbody>
-      <tr ng-repeat="strike in symbolTracker[symbol].chain">
+      <tr ng-repeat="(i,strike) in chainArray | orderBy: 'numberStrike'">
         <td ng-repeat="(i, header) in dataShown track by $index">{{ Math.round(strike.call[header.key]*100)/100  || strike.call[header.key] || "N/A"}}</td>
         <td>{{Math.round(strike.call['bid']*100)/100 || strike.call['bid']}}</td>
         <td>{{Math.round(strike.call['ask']*100)/100 || strike.call['ask']}}</td>
@@ -54,5 +55,4 @@
       </tr>
     </tbody>
   </table>
-
 </div>

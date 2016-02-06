@@ -4,11 +4,11 @@ angular.module('inspinia')
       .controller('tableCtrl', function($scope, Auth, $firebaseObject, $location, $timeout){
 
         var authData            = Auth.$getAuth()
-        var userRef             = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid)
-        var optionsRef          = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/options')
-        var equityRef           = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
-        var symbolTrackerRef  = new Firebase('https://optionsjs.firebaseio.com/portfolio/')
-        var usersRef            = new Firebase('https://optionsjs.firebaseio.com/users')
+        var userRef             = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid)
+        var optionsRef          = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid + '/currentPortfolio/options')
+        var equityRef           = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
+        var symbolTrackerRef    = new Firebase('https://rooftoptrading.firebaseio.com/portfolio/')
+        var usersRef            = new Firebase('https://rooftoptrading.firebaseio.com/users')
 
         if(!authData){
           $location.path('/index/login')

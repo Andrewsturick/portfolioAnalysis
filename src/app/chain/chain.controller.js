@@ -1,11 +1,13 @@
 angular.module('inspinia')
-      .controller('ChainCtrl', function($scope, Auth, $firebaseObject, $location, $timeout, $state){
+      .controller('ChainCtrl', function($scope, Auth, $firebaseObject, $firebaseArray, $location, $timeout, $state){
+        $scope.symbol = $state.params.symbol;
         var authData            = Auth.$getAuth()
-        var userRef             = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid)
-        var optionsRef          = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/options')
-        var equityRef           = new Firebase('https://optionsjs.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
-        var symbolTrackerRef    = new Firebase('https://optionsjs.firebaseio.com/portfolio/')
-        var usersRef            = new Firebase('https://optionsjs.firebaseio.com/users')
+        var userRef             = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid)
+        var optionsRef          = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid + '/currentPortfolio/options')
+        var equityRef           = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid + '/currentPortfolio/equities')
+        var symbolTrackerRef    = new Firebase('https://rooftoptrading.firebaseio.com/portfolio/')
+        var usersRef            = new Firebase('https://rooftoptrading.firebaseio.com/users')
+        var currentRef          = new Firebase('https://rooftoptrading.firebaseio.com/portfolio/' + $scope.symbol + '/chain' )
 
         if(!authData){
           $location.path('/index/login')
@@ -16,7 +18,8 @@ angular.module('inspinia')
             $scope.userRef          = $firebaseObject(userRef)
             $scope.optionsPortfolio = $firebaseObject(optionsRef)
             $scope.portfolio        = $firebaseObject(equityRef)
-            $scope.symbolTracker  = $firebaseObject(symbolTrackerRef)
+            $scope.chainArray      = $firebaseArray(currentRef)
+            // $scope.symbolTracker    = $firebaseObject(symbolTrackerRef)
             usersRef.child(authData.uid + '/currentPortfolio').on('value', function(snap){
               if(!snap.val()){
                 $location.path('/index/upload')
@@ -25,21 +28,27 @@ angular.module('inspinia')
           })
         }
 
-          $scope.symbol = $state.params.symbol;
           $scope.Math = window.Math
-
           $scope.dataShown = [{title:"Open Interest", key:"open_interest"}, {title:"High", key: "high"}]
 
 
+
+
+          $scope.testArr= [
+            {valueTest : '2', word: 'hi'}
+            ,{valueTest: '5', word: 'boob'}
+            ,{valueTest: '3', word: 'howdy'}
+          ]
+
+
+
+
           $scope.addToDataShown = function(index, data, type){
+
             type=="call" ? insertRegular() : insertReverse()
 
             function insertRegular(){
-                // var test = $scope.dataShown
-                // console.log(test.splice(index, 1, {title: data, key: $scope.Objectify(data)}))
-                // console.log(test)
                 $scope.dataShown.splice(index, 1, {title: data, key: $scope.Objectify(data)})
-                console.log($scope.dataShown)
             }
             function insertReverse(){
                 $scope.dataShown.splice($scope.dataShown.length -1 -index, 1, {title: data, key: $scope.Objectify(data)});
