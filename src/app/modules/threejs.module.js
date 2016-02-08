@@ -18,8 +18,8 @@
 		function onScriptLoad() {
 			$rootScope.$apply(function() {
 				deferred.resolve(window.THREE);
-
 			});
+      $rootScope.$broadcast('threejsLoaded', 'Done!!')
 		}
 
 		// Create a script tag with ThreeJS as the source
@@ -42,6 +42,7 @@
 		scriptTag.onreadystatechange = function () {
       console.log()
 			if (this.readyState == 'complete') {
+        console.log('READYYYYYYYY');
 				onScriptLoad();
 			}
 		};

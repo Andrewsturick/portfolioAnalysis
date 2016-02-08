@@ -1,5 +1,5 @@
 angular.module('inspinia')
-      .controller('ThreeVizCtrl', function($scope, d3Service, Auth, $firebaseArray, $location, $timeout,  THREEService){
+      .controller('ThreeViz2Ctrl', function($scope, d3Service, Auth, $firebaseArray, $location, $timeout,  THREEService){
 
         var authData            = Auth.$getAuth()
         var userRef             = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid)
@@ -9,11 +9,11 @@ angular.module('inspinia')
         var symbolTrackerRef    = new Firebase('https://rooftoptrading.firebaseio.com/portfolio/')
         var usersRef            = new Firebase('https://rooftoptrading.firebaseio.com/users')
         //
+
+
        //  //converts to useable object
         $timeout(function() {
           $scope.userRef           = $firebaseArray(userRef)
-          $scope.optionsPortfolio  = $firebaseArray(optionsRef)
-          $scope.portfolio         = $firebaseArray(equityRef)
           $scope.symbolTracker     = $firebaseArray(symbolTrackerRef)
           $scope.usersRef          = $firebaseArray(usersRef)
           $scope.userPortRef       = $firebaseArray(userPort)
@@ -23,41 +23,4 @@ angular.module('inspinia')
             }
           })
         })
-
-        $scope.charts = {
-           PriceBook    : {
-             title  : 'Price Book',
-             key    : 'PriceBook'
-           },
-           PreviousClose:  {
-             title  : 'Previous Close',
-             key    : 'PreviousClose'},
-           Volume       :  {
-             title  : 'Volume',
-             key    : 'Volume',
-            },
-            YearHigh     :  {
-              title:  'Year High',
-              key   : 'YearHigh'
-            },
-            ShortRatio   :  {
-              title: 'Short Ratio',
-              key   : 'ShortRatio'
-            }
-         }
-
-        $scope.currentlySelected = 'Volume';
-
-        $scope.clickEvent = function(item){
-          $scope.$apply(function(){
-            if($scope.showDetailPanel){
-                $scope.showDetailPanel = false;
-                $scope.detailItem  = '';
-            }
-            else{
-                $scope.showDetailPanel = true;
-                $scope.detailItem = item;
-            }
-          })
-        }
       })
