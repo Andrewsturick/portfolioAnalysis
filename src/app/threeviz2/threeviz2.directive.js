@@ -29,7 +29,7 @@ angular.module('inspinia')
             scene.add(camera)
             //renderer init
             renderer = new THREE.WebGLRenderer()
-            renderer.setClearColor(0xdddddd, 1.0)
+            renderer.setClearColor(0xffffff, 1.0)
             renderer.setSize(dimensions.width,dimensions.height)
             renderer.shadowMapEnabled = true;
             //controls init

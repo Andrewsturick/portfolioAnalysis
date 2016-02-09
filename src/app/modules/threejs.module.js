@@ -27,20 +27,26 @@
 		// has been loaded
 		var scriptTag = $document[0].createElement('script');
     var scriptTagCSS = $document[0].createElement('script')
+    var scriptTagThreeX = $document[0].createElement('script')
+
 		scriptTag.type = 'text/javascript';
     scriptTagCSS.type = 'text/javascript';
+    scriptTagThreeX.type = 'text/javascript';
+
 		scriptTag.async = true;
 		scriptTagCSS.async = true;
 		var online = false;
 		if (online) {
 			scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js';
+      scriptTagThreeX.src = '../../assets/three.js-master/build/threex.js'
       // scriptTagCSS.src  = '../../assets/three.js-master/build/css3d.js';
 		} else {
 			scriptTag.src = '../../assets/three.js-master/build/three.js';
+      scriptTagThreeX.src = '../../assets/three.js-master/build/threex.js'
+
       // scriptTagCSS.src = '../../assets/three.js-master/build/css3d.js'
 		}
 		scriptTag.onreadystatechange = function () {
-      console.log()
 			if (this.readyState == 'complete') {
         console.log('READYYYYYYYY');
 				onScriptLoad();
@@ -50,6 +56,7 @@
 
 		var s = $document[0].getElementsByTagName('body')[0];
 		s.appendChild(scriptTag).appendChild(scriptTagCSS);
+    s.appendChild(scriptTag).appendChild(scriptTagThreeX);
 
 		function resetRenderer() {
 			// Reset when switching between views, routes or states (with ui-router	module).
