@@ -46,7 +46,7 @@
     "node": ">=0.10.0"
   },
   "scripts": {
-    "start": "bower install",
-    "postinstall": "gulp build"
+    "start": "bower npm install",
+    "postinstall": "gulp serve "
   }
 }
