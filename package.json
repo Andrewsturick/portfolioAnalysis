@@ -47,6 +47,5 @@
   },
   "scripts": {
     "start": "npm start",
-    "postinstall": "bower install "
-  }
+   }
 }
