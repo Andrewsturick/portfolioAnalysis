@@ -83,7 +83,6 @@ angular.module('inspinia')
                          .attr('y', function(d,i){return dataPrepService.yCoord(i, chartAttrs)})
                          svg.append('br')
 
-
                   }
                }
             }

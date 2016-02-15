@@ -31,16 +31,20 @@ angular.module('inspinia')
         })
 
         var onComplete = function(err) {
+          console.log('done1');
           if (err) {
             console.log('Synchronization failed');
           } else {
             $scope.csvReturn = false;
+            console.log('done2');
           }
         };
 
 
 
         $scope.uploadFile = function(file) {
+          console.log(file);
+          console.log('boob');
           csvRef.child(authData.uid).update({
             csv: file,
             id: authData.uid

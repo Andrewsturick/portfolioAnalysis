@@ -18,6 +18,7 @@
 		function onScriptLoad() {
 			$rootScope.$apply(function() {
 				deferred.resolve(window.THREE);
+        deferred.resolve(window.TWEEN)
 			});
       $rootScope.$broadcast('threejsLoaded', 'Done!!')
 		}
@@ -28,21 +29,23 @@
 		var scriptTag = $document[0].createElement('script');
     var scriptTagCSS = $document[0].createElement('script')
     var scriptTagThreeX = $document[0].createElement('script')
-
+    var scriptTagTween = $document[0].createElement('script')
 		scriptTag.type = 'text/javascript';
     scriptTagCSS.type = 'text/javascript';
     scriptTagThreeX.type = 'text/javascript';
-
+    scriptTagTween.type = 'text/javascript';
+    scriptTagTween.async= true
 		scriptTag.async = true;
 		scriptTagCSS.async = true;
 		var online = false;
 		if (online) {
 			scriptTag.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.js';
-      scriptTagThreeX.src = '../../assets/three.js-master/build/threex.js'
+      scriptTagTween.src = '../../assets/three.js-master/build/threex.js'
+      scriptTagTween.src = '../../assets/Tween.js'
       // scriptTagCSS.src  = '../../assets/three.js-master/build/css3d.js';
 		} else {
 			scriptTag.src = '../../assets/three.js-master/build/three.js';
-      scriptTagThreeX.src = '../../assets/three.js-master/build/threex.js'
+      scriptTagTween.src = '../../assets/three.js-master/build/threex.js'
 
       // scriptTagCSS.src = '../../assets/three.js-master/build/css3d.js'
 		}

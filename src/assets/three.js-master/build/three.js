@@ -7480,8 +7480,10 @@ THREE.EventDispatcher.prototype = {
 			}
 
 			for ( var i = 0; i < length; i ++ ) {
+				try{
+					array[ i ].call( this, event );
 
-				array[ i ].call( this, event );
+				}catch(err){}
 
 			}
 
@@ -37517,8 +37519,10 @@ THREE.CSS3DRenderer = function () {
 	};
 
 	this.render = function ( scene, camera ) {
+		try{
+			var fov = 0.5 / Math.tan( THREE.Math.degToRad( camera.fov * 0.5 ) ) * _height;
 
-		var fov = 0.5 / Math.tan( THREE.Math.degToRad( camera.fov * 0.5 ) ) * _height;
+		}catch(e){}
 
 		domElement.style.WebkitPerspective = fov + "px";
 		domElement.style.MozPerspective = fov + "px";

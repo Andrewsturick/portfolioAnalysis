@@ -1,0 +1,15 @@
+{
+  "name": "subunit",
+  "homepage": "https://github.com/sghall/subunit",
+  "version": "0.2.9",
+  "_release": "0.2.9",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.2.9",
+    "commit": "f1587eadd11e684c4d0fe4d1624204d5dffa2eda"
+  },
+  "_source": "git://github.com/sghall/subunit.git",
+  "_target": "~0.2.9",
+  "_originalSource": "subunit",
+  "_direct": true
+}

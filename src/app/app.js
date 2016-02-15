@@ -3,7 +3,7 @@
 // need help to bang the OAuth
 // where are the modules loaded?
 
-angular.module('inspinia', ['d3', 'threejs','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
+angular.module('inspinia', ['d3','threejs','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
@@ -53,6 +53,11 @@ angular.module('inspinia', ['d3', 'threejs','ngAnimate', 'ngCookies', 'ngTouch',
           url:'/threeviz3',
           templateUrl: 'app/threeviz3/threeviz3.html',
           controller: 'ThreeViz3Ctrl'
+        })
+        .state('index.threeviz4', {
+          url: '/threeviz4',
+          templateUrl: 'app/threeviz4/threeviz4.html',
+          controller: 'ThreeViz4Ctrl'
         })
 
     $urlRouterProvider.otherwise('/index/login');

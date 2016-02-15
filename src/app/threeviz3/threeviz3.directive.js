@@ -13,22 +13,23 @@ angular.module('inspinia')
       scope.params = {
         size : "open_interest",
         color : "iv",
-        y : "delta"
+        y : "delta",
+        distanceBetween: 3000
       }
+
       scope.scales = {}
-
-
 
       function init(){
         var dimensions = {
-          height: window.innerHeight,
-          width: window.innerWidth
+          height: window.innerHeight*.7,
+          width: window.innerWidth*.7
         }
 
         //scene init
         scene = new THREE.Scene();
         //camera init
         camera = new THREE.PerspectiveCamera(45, dimensions.width/dimensions.height, 1, 100000)
+        console.log(camera);
         camera.position.z = -5000;
         camera.position.y = 0;
         camera.lookAt
@@ -38,41 +39,42 @@ angular.module('inspinia')
         renderer.setClearColor(0xffffff, 1.0)
         renderer.setSize(dimensions.width,dimensions.height)
         //controls init
-        controls = new THREE.OrbitControls( camera );
+        controls = new THREE.OrbitControls(camera);
         controls.addEventListener( 'change', renderer.render );
         //append to DOM
-        document.getElementById('threejsd3').appendChild(renderer.domElement)
+        var container = document.getElementById('threejsd3').appendChild(renderer.domElement)
 
         spotLight = new THREE.SpotLight( 0xffffff );
         spotLight.castShadow= true;
         spotLight.position.set( 0, 10000,0);
         scene.add( spotLight );
 
+        var mouseVector = new THREE.Vector3();
+        var raycaster = new THREE.Raycaster();
 
-        function onDocumentMouseDown( event ) {
-          var mouse3D = new THREE.Vector3( ( event.clientX / window.innerWidth ) * 2 - 1,   //x
-          -( event.clientY / window.innerHeight ) * 2 + 1,  //y
-          0.5 );                                            //z
-          projector.unprojectVector( mouse3D, camera );
-          mouse3D.sub( camera.position );
-          mouse3D.normalize();
-          var raycaster = new THREE.Raycaster( camera.position, mouse3D );
-          var intersects = raycaster.intersectObjects( objects );
-          // Change color if hit block
-          if ( intersects.length > 0 ) {
-            console.log(intersects[ 0 ].object)
+        container.addEventListener( 'mousemove', mouseMove, false );
+
+        function mouseMove(e){
+          mouseVector.x = 2 * (e.offsetX / dimensions.width) - 1;
+          mouseVector.y = 1 - 2 * ( e.offsetY / dimensions.height );
+          mouseVector.z = .5
+          mouseVector.unproject( camera );
+          raycaster.set( camera.position, mouseVector.sub( camera.position ).normalize() )
+          var intersects = raycaster.intersectObjects( scene.children );
+          if(intersects[0]){
+            scope.showingOption = intersects[0]
+
+             document.getElementById('threejsd3Shower').appendChild('p').innerHTML=scope.showingOption.object.strike.strike
+             document.getElementById('threejsd3Shower').appendChild('p').innerHTML=scope.showingOption.object.optionType.type
+
+             console.log(scope.showingOption.object.strike.strike || scope.showingOption.object.params.strike.strike)
           }
         }
       }
 
 
       function addObjectsToScene(data){
-
-        console.log('////////////////////');
-
         scope.cardinals =  dataPrepChainService.cardinals(data, scope.params)
-
-        // console.log(cardinals);
         for(var stock in scope.cardinals){
           for(var param in scope.cardinals[stock]){
             var  paramObject = scope.cardinals[stock][param]
@@ -117,7 +119,7 @@ angular.module('inspinia')
 
           scope.scales[stock].scaleY = d3.scale.linear()
           .domain([0,.5])
-          .range([0,5000])
+          .range([0,3000])
 
           scope.scales[stock].scaleZ = d3.scale.linear()
           .domain([d3.min(stock.chain, function(d){
@@ -148,14 +150,16 @@ angular.module('inspinia')
                 obj[optionType].geometry = new THREE.SphereGeometry(scope.scales[stock].radius(stock.chain[strikePrice][optionType][scope.params.size]), 16, 32)
                 obj[optionType].material = new THREE.MeshBasicMaterial({color: scope.scales[stock].color(stock.chain[strikePrice][optionType][scope.params.color])})
                 obj[optionType].sphere   = new THREE.Mesh(obj[optionType].geometry, obj[optionType].material )
-                obj[optionType].sphere.position.x = -5000 + index*1700 + 800
+                obj[optionType].sphere.position.x = -5000 + index*scope.params.distanceBetween + 800
                 obj[optionType].sphere.position.y = scope.scales[stock].scaleY(0.5-Math.abs(0.5-Math.abs(stock.chain[strikePrice][optionType][scope.params.y])))
                 obj[optionType].sphere.position.z = scope.scales[stock].scaleZ(stock.chain[strikePrice].numberStrike)
                 obj[optionType].sphere.stock = stock.symbol
-                // obj[optionType].sphere.
-                // obj[optionType].sphere.
-                // obj[optionType].sphere.
-                // obj[optionType].sphere.
+                obj[optionType].sphere.colorRef = {param: scope.params.color, value:stock.chain[strikePrice][optionType][scope.params.color]}
+                obj[optionType].sphere.sizeRef = {param: scope.params.size, value: stock.chain[strikePrice][optionType][scope.params.size] }
+                obj[optionType].sphere.yRef = {param: scope.params.y , value: stock.chain[strikePrice][optionType][scope.params.y]}
+                obj[optionType].sphere.strike = {strike: stock.chain[strikePrice].numberStrike}
+                obj[optionType].sphere.optionType = {type: optionType}
+
                 spheres[stock].callSpheres[strikePrice] = obj[optionType]
                 scene.add( spheres[stock].callSpheres[strikePrice].sphere)
               }
@@ -164,12 +168,16 @@ angular.module('inspinia')
                 obj[optionType].geometry = new THREE.BoxGeometry(scope.scales[stock].radius(stock.chain[strikePrice][optionType][scope.params.size]),scope.scales[stock].radius(stock.chain[strikePrice][optionType][scope.params.size]),scope.scales[stock].radius(stock.chain[strikePrice][optionType][scope.params.size]))
                 obj[optionType].material = new THREE.MeshBasicMaterial({color: scope.scales[stock].color(stock.chain[strikePrice][optionType][scope.params.color])})
                 obj[optionType].box   = new THREE.Mesh(obj[optionType].geometry, obj[optionType].material )
-                obj[optionType].box.position.x = -5000 + index*1700
+                obj[optionType].box.position.x = -5000 + index*scope.params.distanceBetween
                 obj[optionType].box.position.y = scope.scales[stock].scaleY(0.5-Math.abs(0.5-Math.abs(stock.chain[strikePrice][optionType][scope.params.y])))
                 obj[optionType].box.position.z = scope.scales[stock].scaleZ(stock.chain[strikePrice].numberStrike)
-                console.log(obj[optionType].box)
-                obj[optionType].box.stock = stock.symbol
-
+                obj[optionType].box.params = {}
+                obj[optionType].box.params.stock = stock.symbol
+                obj[optionType].box.params.colorRef = {param: scope.params.color, value:stock.chain[strikePrice][optionType][scope.params.color]}
+                obj[optionType].box.params.sizeRef = {param: scope.params.size, value: stock.chain[strikePrice][optionType][scope.params.size] }
+                obj[optionType].box.params.yRef = {param: scope.params.y , value: stock.chain[strikePrice][optionType][scope.params.y]}
+                obj[optionType].box.strike = {strike: stock.chain[strikePrice].numberStrike}
+                obj[optionType].box.optionType = {type: optionType}
                 boxes[stock].putBoxes[strikePrice] = obj[optionType]
                 scene.add(boxes[stock].putBoxes[strikePrice].box)
               }

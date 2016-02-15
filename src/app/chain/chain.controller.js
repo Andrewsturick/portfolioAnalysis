@@ -32,21 +32,8 @@ angular.module('inspinia')
           $scope.dataShown = [{title:"Open Interest", key:"open_interest"}, {title:"High", key: "high"}]
 
 
-
-
-          $scope.testArr= [
-            {valueTest : '2', word: 'hi'}
-            ,{valueTest: '5', word: 'boob'}
-            ,{valueTest: '3', word: 'howdy'}
-          ]
-
-
-
-
           $scope.addToDataShown = function(index, data, type){
-
             type=="call" ? insertRegular() : insertReverse()
-
             function insertRegular(){
                 $scope.dataShown.splice(index, 1, {title: data, key: $scope.Objectify(data)})
             }

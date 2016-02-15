@@ -45,6 +45,15 @@ angular.module('inspinia')
                     var color = d3.scale.category10()
 
                     var div = document.createElement('div')
+                    var header =  d3.select('div').append('text')
+                                    .attr('id', chart+"header")
+                                    .text(chart)
+                                    .style('font-size', '2em')
+
+
+                              div.appendChild(document.getElementById(chart+"header"))
+                              div.appendChild(document.createElement('br'))
+                            console.log('header: ', header)
                     var svg2 = d3.select('div').append('svg')
                                 .attr('id', chart)
                                 .style('width', chartAttrs.width)
@@ -96,21 +105,20 @@ angular.module('inspinia')
                         var object = new THREE.CSS3DObject(div)
                         object.__data__ = {}
                         object.__data__.vertical = {
-                          y:-400+verticalCounter*300,
+                          z:-400+verticalCounter*300,
                           x:100,
-                          z:0
+                          y:0
                         }
                         verticalCounter++
-                        console.log(object,'')
-                        if(chart!="PercentChange"){
-                          object.position.y =0;
+                        if(counter!=300){
+                          object.position.y =700;
                           object.position.x =-900 +counter;
                           object.position.z = 0;
                         }
                         else{
-                          object.position.y = 0;
-                          object.position.x = counter;
-                          object.position.z = counter;
+                          object.position.y = -100;
+                          object.position.x = 500;
+                          object.position.z = 3000;
                         }
                           scene.add(object)
                     }
@@ -122,6 +130,7 @@ angular.module('inspinia')
                   barPadding: 10,
                   barHeight: 25,
                 }
+
          var xScale              = d3.scale.linear()
                                      .domain([0, d3.max(data, function(d){
                                        return dataPrepService.prepData(d,chart,dataPrepService.chooseType(d, chart))
@@ -160,7 +169,6 @@ angular.module('inspinia')
                                       })()
                                 })
                                 .attr('y', function(d,i){return dataPrepService.yCoord(i, chartAttrs)})
-
               }
 
 
@@ -171,7 +179,6 @@ angular.module('inspinia')
 
 
               $timeout(function(){
-                console.log('5');
                 var camera, scene, renderer, geometry, material, mesh, rendererCSS;
                 var dimensions = {
                   height :window.innerHeight,
@@ -181,17 +188,12 @@ angular.module('inspinia')
                 animate();
               }, 4000)
 
-
-
-
-
-
-
               function init(dimensions) {
+                scope.displaying = 1
                 scene = new THREE.Scene();
                 camera = new THREE.PerspectiveCamera(50, dimensions.width/dimensions.height, 1, 10000);
-                camera.position.z = 2000;
-                camera.position.x = 000;
+                camera.position.z = 4000;
+                camera.position.x = 500;
                 camera.lookAt.x = 0
                 scene.add(camera);
                 scope.renderCharts(angular.fromJson(scope.data), angular.fromJson(scope.chartTypes))
@@ -200,14 +202,9 @@ angular.module('inspinia')
                 document.getElementById('threejs').appendChild(renderer.domElement)
               }
 
-
-
               function animate() {
-                console.log('7');
                 requestAnimationFrame(animate);
-                scene.children[2].rotation.x +=.02;
-
-
+                TWEEN.update();
                 render();
               }
 
@@ -215,6 +212,54 @@ angular.module('inspinia')
               function render() {
                 renderer.render(scene, camera);
               }
+
+              scope.lastShownIndex = 1
+              document.addEventListener('keyup', changeLayout)
+              function changeLayout(e){
+                switch(e.keyCode){
+                  case 37 :
+                  scope.displaying=scope.displaying -1
+                  break;
+                  case 39 :
+                  scope.displaying=scope.displaying + 1
+                  break;
+                }
+                duration = 600;
+
+
+                scene.children.forEach(function(object, i){
+                     if (object.__data__){
+                       console.log(i, scope.displaying)
+                      if(i==scope.displaying){
+                        console.log(object.position, 'else');
+                        var coords = new TWEEN.Tween(object.position)
+                        .to({y :-100, x: 500, z :3000})
+                        .easing(TWEEN.Easing.Sinusoidal.InOut)
+                        .start();
+                        if(!scope.lastShownIndex){
+                          scope.lastShownIndex = scope.displaying
+
+                        }
+                      }
+                      else  if(i ==scope.lastShownIndex){
+                        console.log(object, 'if');
+                        var coords = new TWEEN.Tween(object.position)
+                        .to({x:-900 +300*i , y: 700, z: 0})
+                        .easing(TWEEN.Easing.Sinusoidal.InOut)
+                        .start();
+                        scope.lastShownIndex = scope.displaying
+
+                      }
+                    }
+                  })
+
+                var update = new TWEEN.Tween(this)
+                .to({}, duration)
+                .start();
+            }
+
+
+
           }
         }
       })

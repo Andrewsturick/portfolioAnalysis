@@ -18,9 +18,9 @@ angular.module('inspinia')
           $scope.usersRef          = $firebaseArray(usersRef)
           $scope.userPortRef       = $firebaseArray(userPort)
           usersRef.child(authData.uid + '/currentPortfolio').on('value', function(snap){
-            if(!snap.val()){
-              $location.path('/index/upload')
-            }
+            // if(!snap.val()){
+            //   $location.path('/index/upload')
+            // }
           })
         })
 
