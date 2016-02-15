@@ -9,7 +9,7 @@ angular.module('inspinia')
       sortOptions: "@"
     },
     link: function(scope, el, attr){
-      console.log('breasticle');
+      
       var camera, scene, renderer, controls, spotLight;
       var counter = 0
       scope.isShowing = "Volume"
