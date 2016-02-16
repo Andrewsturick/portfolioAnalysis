@@ -59,6 +59,11 @@ angular.module('inspinia', ['d3','threejs','ngAnimate', 'ngCookies', 'ngTouch', 
           templateUrl: 'app/threeviz4/threeviz4.html',
           controller: 'ThreeViz4Ctrl'
         })
+        .state('index.threeviz5', {
+          url: '/threeviz5',
+          templateUrl: 'app/threeviz5/threeviz5.html',
+          controller: 'ThreeViz5Ctrl'
+        })
 
     $urlRouterProvider.otherwise('/index/login');
   })

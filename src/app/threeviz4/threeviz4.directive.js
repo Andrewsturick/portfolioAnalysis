@@ -81,7 +81,6 @@ angular.module('inspinia')
                                        .attr('y', '95')
                                        .attr('x', function(d){
                                          try{
-
                                            return 95-(d[scope.isShowing].toString().length*8)
                                          }catch(e){
                                             return 95-7
@@ -139,6 +138,7 @@ angular.module('inspinia')
 
         scene.children.forEach(function (object, i){
           if(i!=0){
+
             object.element.childNodes[2].childNodes[1].textContent = vizfourData.dataPrep(d, object.element.__data__);
             var coords = new TWEEN.Tween(object.position)
             .to({x: object.element.__data__.positions[d].position.x, y: object.element.__data__.positions[d].position.y, z: object.element.__data__.positions[d].position.z}, duration)
@@ -182,6 +182,8 @@ angular.module('inspinia')
             array.push(data[stock])
         })
         data = array
+        console.log(data);
+
         scope.sortedBy = {}
         angular.fromJson(scope.sortOptions).params.map(function(param){
           scope.sortedBy[param] =  data.sort(function(a,b){
@@ -237,7 +239,7 @@ angular.module('inspinia')
 
         controls = new THREE.OrbitControls(camera, renderer.domElement);
         controls.rotateSpeed = 0.5;
-        controls.minDistance = 0;
+        controls.minDistance = 1;
         controls.maxDistance = 100000;
         controls.addEventListener('change', renderer.render);
 
@@ -256,18 +258,22 @@ angular.module('inspinia')
           return true
         }
       }
-
+      var lastTime = 0
       scope.$watch(function(){
         return scope.data
       }, function(n,o){
-
+        if(angular.fromJson(n) !=scope.data)
         scope.data = angular.fromJson(n);
         var keyArray = Object.keys(angular.fromJson(n))
         if(THREE && keyArray.every(scope.isBigEnough)){
           counter++
-          if(counter>2){
+          if(Date.now()-lastTime >=40000){
+            console.log('hi');
             updateScene(scope.data)
+
           }
+          lastTime = Date.now()
+
           return counter == 2 ? drawScene(scope.data) : ''
         }
       })
