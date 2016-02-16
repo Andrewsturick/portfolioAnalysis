@@ -9,8 +9,9 @@ angular.module('inspinia')
       sortOptions: "@"
     },
     link: function(scope, el, attr){
-      
+
       var camera, scene, renderer, controls, spotLight;
+      scene = new THREE.Scene();
       var counter = 0
       scope.isShowing = "Volume"
       scope.data = attr.data
@@ -212,7 +213,7 @@ angular.module('inspinia')
         }
 
         //scene init
-        scene = new THREE.Scene();
+
 
         //camera init
         camera = new THREE.PerspectiveCamera(45, dimensions.width/dimensions.height, 1, 100000)
