@@ -1,6 +1,6 @@
 {
-  "firebase": "optionsjs",
-  "public": "src/app",
+  "firebase": "rooftoptrading",
+  "public": "dist",
   "ignore": [
     "firebase.json",
     "**/.*",

@@ -92,33 +92,6 @@ angular.module('inspinia')
                                          vizfourData.dataPrep(scope.isShowing, d)
                                          return vizfourData.dataPrep(scope.isShowing, d)
                                        })
-                   var yourmoms = svgs.append('text')
-                                      .attr('y', '120')
-                                      .attr('x', function(d){
-                                        try{
-
-                                          return 20
-                                        }catch(e){
-                                           return 95-7
-                                          }
-                                        })
-                                      .style('font-size', '2em')
-                                      .text(function(d){
-                                      return 'your moms '
-                                      })
-                      var pussystinks = svgs.append('text')
-                                         .attr('y', '140')
-                                         .attr('x', function(d){
-                                           try{
-                                             return 20
-                                           }catch(e){
-                                              return 95-7
-                                             }
-                                           })
-                                         .style('font-size', '2em')
-                                         .text(function(d){
-                                         return 'pussy stinks '
-                                         })
          elements.each(setData)
          elements.each(createObject)
 
@@ -287,9 +260,10 @@ angular.module('inspinia')
       scope.$watch(function(){
         return scope.data
       }, function(n,o){
+
         scope.data = angular.fromJson(n);
         var keyArray = Object.keys(angular.fromJson(n))
-        if(keyArray.every(scope.isBigEnough)){
+        if(THREE && keyArray.every(scope.isBigEnough)){
           counter++
           if(counter>2){
             updateScene(scope.data)
