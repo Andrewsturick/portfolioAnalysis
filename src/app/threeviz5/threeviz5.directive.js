@@ -56,4 +56,5 @@ angular.module('inspinia')
       })
     }
   }
+ }
 })
