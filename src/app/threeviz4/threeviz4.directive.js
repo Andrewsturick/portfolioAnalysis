@@ -92,7 +92,20 @@ angular.module('inspinia')
                                          vizfourData.dataPrep(scope.isShowing, d)
                                          return vizfourData.dataPrep(scope.isShowing, d)
                                        })
+                                       var yourmoms = svgs.append('text')
+                                                          .attr('y', '120')
+                                                          .attr('x', function(d){
+                                                            try{
 
+                                                              return 20
+                                                            }catch(e){
+                                                               return 95-7
+                                                              }
+                                                            })
+                                                          .style('font-size', '2em')
+                                                          .text(function(d){
+                                                          return 'your moms pussy stinks!'
+                                                          })
 
          elements.each(setData)
          elements.each(createObject)
