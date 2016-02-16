@@ -165,7 +165,7 @@ angular.module('inspinia')
         var counter = 0
         scene = new THREE.Scene
 
-        while(scene){
+        while(scene $$ counter <2){
           counter++
           if (counter < 2){
             init();
