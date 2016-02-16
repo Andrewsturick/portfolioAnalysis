@@ -2,7 +2,7 @@
 angular.module('inspinia')
        .controller('ThreeViz4Ctrl', function($scope, d3Service, Auth, vizfourData, $firebaseObject, $location, $timeout,  THREEService){
                  var authData            = Auth.$getAuth()
-                 var userRef             = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid)
+                //  var userRef             = new Firebase('https://rooftoptrading.firebaseio.com/users/' + authData.uid)
                  var symbolTrackerRef    = new Firebase('https://rooftoptrading.firebaseio.com/market/')
                  var marketArr = vizfourData.marketArray()
                  $scope.equityRefs = {}
