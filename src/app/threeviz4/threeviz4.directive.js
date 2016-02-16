@@ -162,12 +162,21 @@ angular.module('inspinia')
 
       //when threejs is loaded, initialize threejs functions
       $rootScope.$on('threejsLoaded', function(event, data){
-        scene = new THREE.Scene();
+        var counter = 0
+        scene = new THREE.Scene
 
-        init();
-        animate();
+        while(scene){
+          counter++
+          if (counter < 2){
+            init();
+            animate();
+          }
+        }
       })
 
+      function createScene(){
+        scene = new THREE.Scene()
+      }
 
       function updateScene(data){
         var array = [];
