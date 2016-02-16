@@ -107,7 +107,7 @@ angular.module('inspinia')
                                       return 'your moms '
                                       })
                       var pussystinks = svgs.append('text')
-                                         .attr('y', '120')
+                                         .attr('y', '140')
                                          .attr('x', function(d){
                                            try{
                                              return 20
