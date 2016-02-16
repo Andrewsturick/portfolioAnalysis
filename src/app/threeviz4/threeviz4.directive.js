@@ -11,7 +11,6 @@ angular.module('inspinia')
     link: function(scope, el, attr){
 
       var camera, scene, renderer, controls, spotLight;
-      scene = new THREE.Scene();
       var counter = 0
       scope.isShowing = "Volume"
       scope.data = attr.data
@@ -163,6 +162,8 @@ angular.module('inspinia')
 
       //when threejs is loaded, initialize threejs functions
       $rootScope.$on('threejsLoaded', function(event, data){
+        scene = new THREE.Scene();
+
         init();
         animate();
       })
