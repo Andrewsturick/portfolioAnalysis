@@ -182,7 +182,6 @@ angular.module('inspinia')
             array.push(data[stock])
         })
         data = array
-        console.log(data);
 
         scope.sortedBy = {}
         angular.fromJson(scope.sortOptions).params.map(function(param){
@@ -262,18 +261,14 @@ angular.module('inspinia')
       scope.$watch(function(){
         return scope.data
       }, function(n,o){
-        if(angular.fromJson(n) !=scope.data)
-        scope.data = angular.fromJson(n);
+      scope.data = angular.fromJson(n);
         var keyArray = Object.keys(angular.fromJson(n))
         if(THREE && keyArray.every(scope.isBigEnough)){
           counter++
           if(Date.now()-lastTime >=40000){
-            console.log('hi');
             updateScene(scope.data)
-
           }
           lastTime = Date.now()
-
           return counter == 2 ? drawScene(scope.data) : ''
         }
       })

@@ -16942,6 +16942,14 @@ h5 {
     display: block !important;
   }
 }
+@media print {
+  nav.navbar-static-side {
+    display: none;
+  }
+  #page-wrapper {
+    margin: 0;
+  }
+}
 /*
  *
  *   This is style for skin config
@@ -17038,12 +17046,4 @@ h5 {
 }
 .ultra-skin:hover {
   background: url("patterns/4.png") repeat scroll 0 0;
-}
-@media print {
-  nav.navbar-static-side {
-    display: none;
-  }
-  #page-wrapper {
-    margin: 0;
-  }
 }

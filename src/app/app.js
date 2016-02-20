@@ -3,7 +3,7 @@
 // need help to bang the OAuth
 // where are the modules loaded?
 
-angular.module('inspinia', ['d3','threejs','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
+angular.module('inspinia', ['d3','rzModule','threejs','ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ui.router', 'ui.bootstrap', 'firebase', 'ngFileUpload', 'ngCsvImport' ])
   .config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 

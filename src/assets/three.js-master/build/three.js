@@ -22322,7 +22322,7 @@ THREE.WebGLRenderer = function ( parameters ) {
 
 		if ( camera instanceof THREE.Camera === false ) {
 
-			console.error( 'THREE.WebGLRenderer.render: camera is not an instance of THREE.Camera.' );
+			// console.error( 'THREE.WebGLRenderer.render: camera is not an instance of THREE.Camera.' );
 			return;
 
 		}
