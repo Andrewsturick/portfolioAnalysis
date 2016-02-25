@@ -62,8 +62,6 @@ angular.module('inspinia')
           cssObject.rotation.y = Math.PI
           // add it to the css scene
           CSSScene.add(cssObject);
-
-
           var planeMaterial = new THREE.MeshBasicMaterial({
              color: 0x000000,
              opacity: 0.0,
@@ -88,6 +86,8 @@ angular.module('inspinia')
         var y = vizfiveData.yScale(scope.spyDomainY, scope.spyRangeY, +scope.spy[0].ChangeinPercent.replace("%",""))
         var z = 0
         var index = 0;
+
+
       	for ( var i = 0, l = MAX_POINTS; i < l; i ++ ) {
       		positions[ index ++ ] = x;
       		positions[ index ++ ] = y;
@@ -112,10 +112,31 @@ angular.module('inspinia')
               var labelSprite = vizfiveData.labelSprite(" " + (+scope.spy[i+1].LastTradePriceOnly).toFixed(2) + " ")
             	labelSprite.position.set(0,vizfiveData.yScale(scope.spyDomainY, scope.spyRangeY, +scope.spy[i+1].ChangeinPercent.replace("%",""))+140,0 +((i+1)*1000));
               labelSprite
-              console.log(labelSprite);
             	scene.add( labelSprite );
+
+
             }
         	}
+          var group = new THREE.Group()
+          var testball = new THREE.SphereGeometry(500,12,32)
+          var ballMat = new THREE.MeshBasicMaterial({color: 0x0000ff})
+          var group1 = new THREE.Group()
+          var testball1 = new THREE.SphereGeometry(500,12,32)
+          var ballMat1 = new THREE.MeshBasicMaterial({color: 0x00FFff})
+
+          var meshBall = new THREE.Mesh(testball, ballMat)
+          var meshBall1 = new THREE.Mesh(testball1, ballMat1)
+          meshBall1.position.x = 1000
+          group.add(meshBall, meshBall1)
+
+          scene.add(group)
+      // group.children[0].visible = false
+
+          group1.add(meshBall1)
+          group1.children.map(function(ball){
+            ball.visible = false
+          })
+
       }
 
       scope.$watch(function(){return scope.sphereDrawCount}, function(n,o){
@@ -182,7 +203,7 @@ angular.module('inspinia')
          if(n && o && n.length > 3 && !scope.isDrawn){
           scope.spy = angular.fromJson(n);
           var spy = vizfiveData.makeDataArrayOfObjects(scope.spy)
-          if(!scope.isDrawn){
+          if(!scope.isDrawn && THREE ){
             scope.drawScene(spy)
           }
          }
